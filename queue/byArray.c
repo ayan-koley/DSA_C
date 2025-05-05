@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<stdbool.h>
 #define SIZE 100
 
@@ -37,6 +38,9 @@ int dequeue(queue *q) {
     return q->queue[(q->front)++];;
 }
 void display(queue *q) {
+    if(isEmpty(q)) {
+        return;
+    }
     for(int i=q->front; i <= q->rear; i++) {
         printf(" %d ", q->queue[i]);
     }
@@ -46,7 +50,7 @@ void display(queue *q) {
 
 // Main function
 int main() {
-    queue *q;
+    queue *q = (queue *)malloc(sizeof(queue));
     init(q);
 
     enqueue(q, 10);
@@ -57,5 +61,6 @@ int main() {
     printf("Dequeued: %d\n", dequeue(q));  // Output: 10
     display(q);                            // Output: 20 30
 
+    free(q);
     return 0;
 }
